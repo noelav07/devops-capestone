@@ -27,8 +27,7 @@ module "vpc" {
 
 # EKS Cluster IAM Role
 resource "aws_iam_role" "eks_cluster_role" {
-  name = "${var.cluster_name}-cluster-role"
-
+name = "${var.project_name}-${var.env}-eks-cluster-role-${random_string.suffix.result}"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
