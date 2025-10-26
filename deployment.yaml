@@ -13,6 +13,7 @@ spec:
       labels:
         app: fileuploader
     spec:
+      serviceAccountName: backend-sa
       containers:
         - name: frontend
           image: public.ecr.aws/s5l7s8c1/capestone/files3:client
@@ -22,6 +23,3 @@ spec:
           image: public.ecr.aws/s5l7s8c1/capestone/files3:server
           ports:
             - containerPort: 3000
-          envFrom:
-            - secretRef:
-                name: backend-env
