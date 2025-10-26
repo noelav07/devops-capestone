@@ -1,0 +1,45 @@
+name: ECR CI/CD
+
+on:
+  push:
+    branches: ["docker"]
+
+jobs:
+  build-test-scan-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build images
+        run: docker compose build
+
+      - name: Scan images with Trivy
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: 'client-fileuploader:latest'
+          format: 'table'
+
+      - uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: 'server-fileuploader:latest'
+          format: 'table'
+
+      - name: Setup AWS ECR
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Push images to same ECR repo
+        run: |
+          REPO=${{ secrets.AWS_ECR_REPO }}
+          docker tag client-fileuploader:latest ${{ steps.login-ecr.outputs.registry }}/$REPO:client
+          docker tag server-fileuploader:latest ${{ steps.login-ecr.outputs.registry }}/$REPO:server
+          docker push ${{ steps.login-ecr.outputs.registry }}/$REPO:client
+          docker push ${{ steps.login-ecr.outputs.registry }}/$REPO:server
