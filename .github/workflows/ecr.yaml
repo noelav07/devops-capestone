@@ -1,4 +1,4 @@
-name: ECR CI/CD
+name: ECR Public CI/CD
 
 on:
   push:
@@ -11,35 +11,39 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Build images
+      - name: Build Docker images
         run: docker compose build
 
-      - name: Scan images with Trivy
+      - name: Scan client image with Trivy
         uses: aquasecurity/trivy-action@0.28.0
         with:
           image-ref: 'client-fileuploader:latest'
           format: 'table'
 
-      - uses: aquasecurity/trivy-action@0.28.0
+      - name: Scan server image with Trivy
+        uses: aquasecurity/trivy-action@0.28.0
         with:
           image-ref: 'server-fileuploader:latest'
           format: 'table'
 
-      - name: Setup AWS ECR
+      - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          aws-region: us-east-1  ${{ secrets.AWS_REGION }}
 
-      - name: Login to Amazon ECR
-        id: login-ecr
+      - name: Login to Amazon ECR Public
         uses: aws-actions/amazon-ecr-login@v2
+        with:
+          registry-type: public
 
-      - name: Push images to same ECR repo
+      - name: Tag and Push images to ECR Public
         run: |
-          REPO=${{ secrets.AWS_ECR_REPO }}
-          docker tag client-fileuploader:latest ${{ steps.login-ecr.outputs.registry }}/$REPO:client
-          docker tag server-fileuploader:latest ${{ steps.login-ecr.outputs.registry }}/$REPO:server
-          docker push ${{ steps.login-ecr.outputs.registry }}/$REPO:client
-          docker push ${{ steps.login-ecr.outputs.registry }}/$REPO:server
+          PUBLIC_REPO_URI=public.ecr.aws/s5l7s8c1/capestone/filess3
+          
+          docker tag client-fileuploader:latest $PUBLIC_REPO_URI:client
+          docker tag server-fileuploader:latest $PUBLIC_REPO_URI:server
+
+          docker push $PUBLIC_REPO_URI:client
+          docker push $PUBLIC_REPO_URI:server
