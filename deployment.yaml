@@ -23,8 +23,4 @@ spec:
           image: public.ecr.aws/s5l7s8c1/capestone/files3:server
           ports:
             - containerPort: 3000
-          envFrom:
-            - secretRef:
-                name: backend-env
-      # Optional: restart policy (default is Always)
       restartPolicy: Always
