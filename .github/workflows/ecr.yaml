@@ -7,6 +7,7 @@ on:
 jobs:
   build-test-scan-push:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -17,21 +18,21 @@ jobs:
       - name: Scan client image with Trivy
         uses: aquasecurity/trivy-action@0.28.0
         with:
-          image-ref: 'client-fileuploader:latest'
-          format: 'table'
+          image-ref: client-fileuploader:latest
+          format: table
 
       - name: Scan server image with Trivy
         uses: aquasecurity/trivy-action@0.28.0
         with:
-          image-ref: 'server-fileuploader:latest'
-          format: 'table'
+          image-ref: server-fileuploader:latest
+          format: table
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region:  ${{ secrets.AWS_REGION }}
+          aws-region: us-west-2
 
       - name: Login to Amazon ECR Public
         uses: aws-actions/amazon-ecr-login@v2
@@ -39,11 +40,14 @@ jobs:
           registry-type: public
 
       - name: Tag and Push images to ECR Public
+        env:
+          PUBLIC_REPO_URI: public.ecr.aws/s5l7s8c1/capestone/filess3
         run: |
-          PUBLIC_REPO_URI=public.ecr.aws/s5l7s8c1/capestone/filess3
-          
+          echo "Pushing images to $PUBLIC_REPO_URI in us-west-2"
+
           docker tag client-fileuploader:latest $PUBLIC_REPO_URI:client
           docker tag server-fileuploader:latest $PUBLIC_REPO_URI:server
 
           docker push $PUBLIC_REPO_URI:client
           docker push $PUBLIC_REPO_URI:server
+
