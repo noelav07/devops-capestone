@@ -1,0 +1,18 @@
+name: Terraform Apply
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: "Type 'yes' to apply changes"
+        required: true
+jobs:
+  terraform-apply:
+    if: ${{ github.event.inputs.confirm == 'yes' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.6.0
+      - run: terraform init
+      - run: terraform apply -auto-approve
