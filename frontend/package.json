@@ -1,0 +1,24 @@
+{
+  "name": "clouddrive-frontend",
+  "version": "1.0.0",
+  "description": "Modern S3 File Manager Frontend",
+  "main": "index.html",
+  "scripts": {
+    "start": "http-server -p 3001 -o",
+    "dev": "live-server --port=3001 --open=/index.html --host=localhost --watch=.",
+    "build": "echo 'No build process needed for static files'",
+    "serve": "http-server -p 3001 -o"
+  },
+  "keywords": [
+    "s3",
+    "file-manager",
+    "frontend",
+    "cloud-storage"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "http-server": "^14.1.1"
+  }
+}
