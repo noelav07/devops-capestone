@@ -30,22 +30,4 @@ jobs:
       - name: Terraform Plan
         id: plan
         run: |
-          terraform plan -no-color -out=tfplan
-          terraform show -no-color tfplan > plan_output.txt
-      - name: Display Plan Output
-        run: cat plan_output.txt
-      - name: Commit Plan File to Repo
-        if: success()
-        uses: EndBug/add-and-commit@v9
-        with:
-          add: "plan_output.txt"
-          message: "Update Terraform plan [skip ci]"
-          default_author: github_actions
-      - name: Upload Plan Artifact
-        if: success()
-        uses: actions/upload-artifact@v4
-        with:
-          name: terraform-plan
-          path: tfplan
-          retention-days: 7
-
+          terraform plan -no-color 
