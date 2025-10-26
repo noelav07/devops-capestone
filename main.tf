@@ -22,7 +22,7 @@ data "aws_caller_identity" "current" {}
 
 # Local values
 locals {
-  cluster_name = "eks-devops-capestone"
+  cluster_name = "${var.project_name}-${var.environment}-eks"
   common_tags = {
     Project     = var.project_name
     Environment = var.environment

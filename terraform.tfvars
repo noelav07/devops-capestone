@@ -1,4 +1,4 @@
-project_name       = "capestone-project"
+project_name       = "my-eks-project"
 environment        = "dev"
 aws_region         = "us-west-2"
 cluster_version    = "1.28"
