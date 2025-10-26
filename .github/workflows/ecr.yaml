@@ -41,7 +41,7 @@ jobs:
 
       - name: Tag and Push images to ECR Public
         env:
-          PUBLIC_REPO_URI: public.ecr.aws/s5l7s8c1/capestone/filess3
+          PUBLIC_REPO_URI: public.ecr.aws/s5l7s8c1/capestone/files3
         run: |
           echo "Pushing images to $PUBLIC_REPO_URI in us-west-2"
 
