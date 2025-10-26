@@ -38,3 +38,13 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "project_name" {
+  description = "Project name prefix for resource naming"
+  type        = string
+}
+
+variable "env" {
+  description = "Deployment environment (e.g. dev, prod)"
+  type        = string
+}
