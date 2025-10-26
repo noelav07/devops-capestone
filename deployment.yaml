@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fileuploader-deployment
+  namespace: fileuploader
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fileuploader
+  template:
+    metadata:
+      labels:
+        app: fileuploader
+    spec:
+      containers:
+        - name: frontend
+          image: public.ecr.aws/s5l7s8c1/capestone/files3:client
+          ports:
+            - containerPort: 80
+        - name: backend
+          image: public.ecr.aws/s5l7s8c1/capestone/files3:server
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - secretRef:
+                name: backend-env
