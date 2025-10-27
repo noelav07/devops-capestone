@@ -262,7 +262,7 @@ app.use((error, req, res, next) => {
 
 // Start server
 app.listen(PORT, () => {
-    console.log(`🚀 Backend server running on http://localhost:${PORT}`);
+    console.log(`🚀 Backend server running on http://0.0.0.0:${PORT}`);
     console.log(`📁 CloudDrive API ready!`);
 
     const requiredEnvVars = ['AWS_ACCESS_KEY_ID', 'AWS_SECRET_ACCESS_KEY', 'S3_BUCKET_NAME'];
