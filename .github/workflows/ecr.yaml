@@ -38,7 +38,7 @@ jobs:
         env:
           PUBLIC_REPO_URI: public.ecr.aws/s5l7s8c1/capestone/files3
         run: |
-        echo "Pushing image to $PUBLIC_REPO_URI in us-east-1"
+          echo "Pushing image to $PUBLIC_REPO_URI in us-east-1"
 
           docker tag fileuploader:latest $PUBLIC_REPO_URI:latest
 
