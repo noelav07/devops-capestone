@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fileuploader
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/noelav07/devops-capestone.git' 
+    targetRevision: argocd  
+    path: .
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: fileuploader
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fileuploader-deployment
+  name: fileuploader
   namespace: fileuploader
   labels:
     app: fileuploader
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: fileuploader-service
-          image: public.ecr.aws/s5l7s8c1/capestone/files3:latest
+          image: public.ecr.aws/s5l7s8c1/capestone/files3:rollout
           ports:
             - containerPort: 80
             - containerPort: 3000
