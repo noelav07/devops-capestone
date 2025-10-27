@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: fileuploader-deployment
   namespace: fileuploader
+  labels:
+    app: fileuploader
 spec:
   replicas: 1
   selector:
@@ -13,7 +15,6 @@ spec:
       labels:
         app: fileuploader
     spec:
-      serviceAccountName: fileuploader-sa   
       containers:
         - name: fileuploader-service
           image: public.ecr.aws/s5l7s8c1/capestone/files3:latest
