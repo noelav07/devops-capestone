@@ -1,5 +1,5 @@
-project_name       = "eks-capestone-project"
-environment        = "dev"
+project_name       = "eks-capestone-project-2"
+environment        = "dev2"
 aws_region         = "us-west-2"
 cluster_version    = "1.28"
 vpc_cidr           = "10.0.0.0/16"
