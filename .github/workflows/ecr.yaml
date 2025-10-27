@@ -1,4 +1,3 @@
-cat .github/workflows/ecr.yaml
 name: ECR Public CI/CD
 
 on:
