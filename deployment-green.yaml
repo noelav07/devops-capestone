@@ -1,24 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fileuploader
-  namespace: fileuploader
+  name: fileuploader-green
+  namespace: fileuploader-rollout
   labels:
     app: fileuploader
+    version: green
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: fileuploader
+      version: green
   template:
     metadata:
       labels:
         app: fileuploader
+        version: green
     spec:
       serviceAccountName: fileuploader-sa
       containers:
         - name: fileuploader-service
-          image: public.ecr.aws/s5l7s8c1/capestone/files3:rollout
+          image: public.ecr.aws/s5l7s8c1/capestone/files3:latest
           ports:
             - containerPort: 80
             - containerPort: 3000
@@ -43,4 +46,3 @@ spec:
                 secretKeyRef:
                   name: aws-credentials
                   key: AWS_SECRET_ACCESS_KEY
-      restartPolicy: Always
