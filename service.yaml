@@ -6,7 +6,7 @@ metadata:
 spec:
   selector:
     app: fileuploader
-    version: blue  
+    version: green  
   ports:
     - name: http
       protocol: TCP
