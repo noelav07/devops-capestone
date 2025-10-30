@@ -2,20 +2,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: app-aiu-deployment
-
 spec:
   replicas: 1
   selector:
-   matchLabels:
-    app: app-aiu
-  template: 
-    metadata: 
-    labels: 
+    matchLabels:
       app: app-aiu
+  template:
+    metadata:
+      labels:
+        app: app-aiu
     spec:
       containers:
         - name: argocd-image-updater-service
           image: public.ecr.aws/s5l7s8c1/capestone/files3:1.0
           ports:
             - containerPort: 80
-      restartPolicy: Always
