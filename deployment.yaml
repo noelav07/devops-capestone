@@ -2,18 +2,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: argocd-image-updater
-  namespace: argocd-image-updater 
+  namespace: argocd-image-updater
   labels:
     app: argocd-image-updater
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: argocd-image-updater-config
+      app: argocd-image-updater
   template:
     metadata:
       labels:
-        app: argocd-image-updater-config
+        app: argocd-image-updater
     spec:
       containers:
         - name: argocd-image-updater-service
@@ -43,6 +43,4 @@ spec:
                   name: argocd-image-updater-config
                   key: AWS_SECRET_ACCESS_KEY
       restartPolicy: Always
-
-
 
