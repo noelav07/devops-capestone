@@ -1,5 +1,4 @@
-namespace: argocd-image-updater
+namespace: argocd
 resources:
-  - namespace.yaml
   - deployment.yaml
   - services.yaml
