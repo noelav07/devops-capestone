@@ -27,11 +27,11 @@ spec:
                 secretKeyRef:
                   name: argocd-image-updater-config
                   key: AWS_REGION
-            - name: S3_BUCKET
+            - name: S3_BUCKET_NAME
               valueFrom:
                 secretKeyRef:
                   name: argocd-image-updater-config
-                  key: S3_BUCKET
+                  key: S3_BUCKET_NAME
             - name: AWS_ACCESS_KEY_ID
               valueFrom:
                 secretKeyRef:
