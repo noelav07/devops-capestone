@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: argocd-image-updater-service
-          image: public.ecr.aws/s5l7s8c1/capestone/files3:1.0
+          image: public.ecr.aws/s5l7s8c1/capestone/files3:rollout
           ports:
             - containerPort: 80
             - containerPort: 3000
