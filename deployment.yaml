@@ -15,7 +15,6 @@ spec:
       labels:
         app: fileuploader
     spec:
-      serviceAccountName: fileuploader-sa
       containers:
         - name: fileuploader-service
           image: public.ecr.aws/s5l7s8c1/capestone/files3:rollout
