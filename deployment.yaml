@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fileuploader
-  namespace: fileuploader
+  name: argocd-image-updater
+  namespace: argocd-image-updater 
   labels:
-    app: fileuploader
+    app: argocd-image-updater
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: fileuploader
+      app: argocd-image-updater-config
   template:
     metadata:
       labels:
-        app: fileuploader
+        app: argocd-image-updater-config
     spec:
       containers:
-        - name: fileuploader-service
+        - name: argocd-image-updater-service
           image: public.ecr.aws/s5l7s8c1/capestone/files3:rollout
           ports:
             - containerPort: 80
@@ -24,22 +24,25 @@ spec:
           env:
             - name: AWS_REGION
               valueFrom:
-                configMapKeyRef:
-                  name: fileuploader-config
+                secretKeyRef:
+                  name: argocd-image-updater-config
                   key: AWS_REGION
             - name: S3_BUCKET
               valueFrom:
-                configMapKeyRef:
-                  name: fileuploader-config
+                secretKeyRef:
+                  name: argocd-image-updater-config
                   key: S3_BUCKET
             - name: AWS_ACCESS_KEY_ID
               valueFrom:
                 secretKeyRef:
-                  name: aws-credentials
+                  name: argocd-image-updater-config
                   key: AWS_ACCESS_KEY_ID
             - name: AWS_SECRET_ACCESS_KEY
               valueFrom:
                 secretKeyRef:
-                  name: aws-credentials
+                  name: argocd-image-updater-config
                   key: AWS_SECRET_ACCESS_KEY
       restartPolicy: Always
+
+
+
