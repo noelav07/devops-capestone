@@ -40,7 +40,7 @@ jobs:
         run: |
           echo "Pushing image to $PUBLIC_REPO_URI in us-east-1"
 
-          docker tag fileuploader:latest $PUBLIC_REPO_URI:latest
+          docker tag fileuploader:latest $PUBLIC_REPO_URI:1.4
 
-          docker push $PUBLIC_REPO_URI:latest
+          docker push $PUBLIC_REPO_URI:1.4
 
